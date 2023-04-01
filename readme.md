@@ -55,11 +55,13 @@ The project has uses the following technolgoies
 
 ### Screen : 1
 A pop up modal with a form to accept user input
-![Screenshot from 2023-04-01 12-33-59](https://user-images.githubusercontent.com/68990762/229283910-fababaa7-1bba-433b-934c-32f3c4b7c338.png)
+![Screenshot from 2023-04-01 17-25-36](https://user-images.githubusercontent.com/68990762/229287291-39dd1908-c5a3-4a58-beda-368554234ed0.png)
+
 
 ### Screen : 2
 Dashboard which shows a bar chart, a line chart and a data grid to dispaly trend in polling choices
-![Screenshot from 2023-04-01 12-33-55](https://user-images.githubusercontent.com/68990762/229284028-560d1fcd-bb65-4891-86c5-b5e9a9389518.png)
+![Screenshot from 2023-04-01 17-25-33](https://user-images.githubusercontent.com/68990762/229287295-96c8dba8-dc73-4a47-b726-7277c092b592.png)
+
 
 
 ## Acknowledgements
