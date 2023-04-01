@@ -1,29 +1,29 @@
 import { Line } from "react-chartjs-2"
-import { Chart as ChartJS } from "chart.js/auto"
+import { Chart as ChartJS, scales } from "chart.js/auto"
 import { useEffect, useState } from "react"
 import { getLineData } from "../services/Services"
 
 const LineChart = () => {
-    const [chartData, setChartData] = useState([])
+  const [chartData, setChartData] = useState([])
   const [trueVotes, setTrueVotes] = useState([])
   const [falseVotes, setFalseVotes] = useState([])
 
   useEffect(() => {
     const fetchTrueVotes = async () => {
       const response = await getLineData(true)
-      // const sortedVotes = response.data.data.sort(
-      //   (a, b) => new Date(a.casted_at) - new Date(b.casted_at)
-      // )
-      setTrueVotes(response.data.data)
+      const sortedVotes = response.data.data.sort(
+        (a, b) => new Date(a.casted_at) - new Date(b.casted_at)
+      )
+      setTrueVotes(sortedVotes)
     }
 
     const fetchFalseVotes = async () => {
       const response = await getLineData(false)
-      // const sortedVotes = response.data.data.sort(
-      //   (a, b) => new Date(a.casted_at) - new Date(b.casted_at)
-      // )
+      const sortedVotes = response.data.data.sort(
+        (a, b) => new Date(a.casted_at) - new Date(b.casted_at)
+      )
 
-      setFalseVotes(response.data.data)
+      setFalseVotes(sortedVotes)
     }
 
     fetchTrueVotes()
@@ -32,24 +32,39 @@ const LineChart = () => {
 
   useEffect(() => {
     if (trueVotes.length > 0 && falseVotes.length > 0) {
-      const trueDates = trueVotes.map((vote) => vote.casted_at)
-      const falseDates = falseVotes.map((vote) => vote.casted_at)
-      const trueCounts = trueVotes.map((vote) => vote.count)
-      const falseCounts = falseVotes.map((vote) => vote.count)
-      const alldates = [...new Set([...trueDates, ...falseDates])]
-      alldates.sort()
+      const combinedDates = [...trueVotes, ...falseVotes]
+        .map((vote) => vote.casted_at)
+        .sort((a, b) => new Date(a) - new Date(b))
+
+      // Count the votes for each date for the true and false votes
+      const trueCounts = {}
+      const falseCounts = {}
+      for (let i = 0; i < combinedDates.length; i++) {
+        const date = combinedDates[i]
+        trueCounts[date] = 0
+        falseCounts[date] = 0
+      }
+      for (let i = 0; i < trueVotes.length; i++) {
+        const vote = trueVotes[i]
+        trueCounts[vote.casted_at] = vote.count
+      }
+      for (let i = 0; i < falseVotes.length; i++) {
+        const vote = falseVotes[i]
+        falseCounts[vote.casted_at] = vote.count
+      }
+
       const chartData = {
-        labels: alldates,
+        labels: combinedDates,
         datasets: [
           {
             label: "True Votes",
-            data: trueCounts,
+            data: combinedDates.map(date => trueCounts[date]),
             borderColor: "green",
             fill: false,
           },
           {
             label: "False Votes",
-            data: falseCounts,
+            data: combinedDates.map(date => falseCounts[date]),
             borderColor: "red",
             fill: false,
           },
@@ -63,8 +78,10 @@ const LineChart = () => {
     return <div>Loading...</div>
   }
   return (
-    <div style={{height : "350px"}}>
-      <Line data={chartData}/>
+    <div style={{ height: "350px" }}>
+      <Line
+        data={chartData}
+      />
     </div>
   )
 }
