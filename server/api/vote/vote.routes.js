@@ -31,8 +31,13 @@ router.post("/createvote", async (req, res, next) => {
 
 //display all votes data
 router.get("/data", async (req, res, next) => {
+  
   try {
-    const vote = await db.vote.findMany()
+    let {page = 1, limit = 10} = req.query
+    page = parseInt(page) 
+    limit = parseInt(limit)
+    const offset = (page-1)*limit
+    const vote = await db.vote.findMany({ take: limit, skip : offset})
     return res.status(200).json({ vote })
   } catch (err) {
     next(err)
