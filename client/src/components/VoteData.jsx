@@ -17,7 +17,6 @@ const VoteData = () => {
       const { data } = await getVotesData(paginationModel)
       setData(data.vote)
       setTotalRows(data.totalCount)
-      console.log(data.totalCount)
     } catch (err) {
       console.log(err)
     } finally {
@@ -38,7 +37,6 @@ const VoteData = () => {
   return (
     <div style={{ height: "400px", width: "100%" }}>
       <h2>All data</h2>
-      {console.log(data)}
       <DataGrid
         columns={columns}
         rows={data}
@@ -49,9 +47,6 @@ const VoteData = () => {
         page={paginationModel.page + 1}
         paginationModel={paginationModel}
         paginationMode="server"
-        onPageChange={(params) =>
-          console.log("onpagechange" + params.page, params.pageSize)
-        }
         onPaginationModelChange={setPaginationModel}
         loading={isLoading}
         slots={{
