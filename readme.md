@@ -4,7 +4,7 @@
 
 Follow the steps below to get started with running the project locally
 
-## Preqquiisites
+## Prerequisites
 
 Before you begin, ensure that you have installed the follwoing on your local machine : 
 
@@ -35,7 +35,7 @@ The project has the following folder structure:
 - `client` : contains the frontend code built with React (created using Vite).
 - `server`: contains the backend code built with Express.js and Prisma
 
-The project has uses the following technolgoies
+The project uses the following technolgoies
 
 ### Frontend
 
@@ -65,13 +65,13 @@ Dashboard which shows a bar chart, a line chart and a data grid to dispaly trend
 
 
 ## Acknowledgements
-List any resources, tutorials, or tools that I used to create this project
+List of resources, tutorials, and tools that I used to create this project
 
 - [Chart JS Tutorial from  PedroTech](https://www.youtube.com/watch?v=RF57yDglDfE)
 - [MUI Docs](https://mui.com/material-ui/getting-started/overview/)
 - [Formik Docs](https://formik.org/docs/overview)
 - [stackoverflow](https://stackoverflow.com)
-- [chatGPT](https://chat.openai.com)
+- [ChatGPT](https://chat.openai.com)
 
 ## Contact
 
