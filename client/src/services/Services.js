@@ -6,8 +6,9 @@ export function postVotesData(data) {
 }
 
 // get all data
-export function getVotesData() {
-  return client.get("/vote/data")
+export function getVotesData(paginationModel) {
+    console.log(paginationModel)
+  return client.get(`/vote/data?page=${(paginationModel.page + 1)}&limit=${paginationModel.pageSize}`)
 }
 
 //get data for bar chart

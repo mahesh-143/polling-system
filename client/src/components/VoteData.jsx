@@ -4,14 +4,30 @@ import { getVotesData } from "../services/Services"
 
 const VoteData = () => {
   const [data, setData] = useState([])
+  const [totalRows, setTotalRows] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  })
 
   const fetchData = async () => {
-    const result = await getVotesData()
-    setData(result.data.vote)
+    setIsLoading(true)
+    try {
+      const { data } = await getVotesData(paginationModel)
+      setData(data.vote)
+      setTotalRows(data.totalCount)
+      console.log(data.totalCount)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [paginationModel])
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "name", headerName: "Name", width: 130 },
@@ -20,11 +36,24 @@ const VoteData = () => {
   ]
 
   return (
-    <div style={{ height: "400px", width: "100%"}}>
+    <div style={{ height: "400px", width: "100%" }}>
       <h2>All data</h2>
+      {console.log(data)}
       <DataGrid
         columns={columns}
         rows={data}
+        rowCount={totalRows}
+        pagination
+        pageSize={paginationModel.pageSize}
+        pageSizeOptions={[10, 50, 100]}
+        page={paginationModel.page + 1}
+        paginationModel={paginationModel}
+        paginationMode="server"
+        onPageChange={(params) =>
+          console.log("onpagechange" + params.page, params.pageSize)
+        }
+        onPaginationModelChange={setPaginationModel}
+        loading={isLoading}
         slots={{
           toolbar: GridToolbar,
         }}
