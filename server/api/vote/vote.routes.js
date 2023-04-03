@@ -38,7 +38,9 @@ router.get("/data", async (req, res, next) => {
     limit = parseInt(limit)
     const offset = (page-1)*limit
     const vote = await db.vote.findMany({ take: limit, skip : offset})
-    return res.status(200).json({ vote })
+    const totalCount = await db.vote.count()
+    const totalPages = Math.ceil(totalCount / limit)
+    return res.status(200).json({ totalPages, totalCount, vote })
   } catch (err) {
     next(err)
   }
