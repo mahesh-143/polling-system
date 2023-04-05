@@ -1,6 +1,7 @@
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getVotesData } from "../services/Services"
+import { DataContext } from "../App"
 
 const VoteData = () => {
   const [data, setData] = useState([])
@@ -10,6 +11,7 @@ const VoteData = () => {
     page: 0,
     pageSize: 10,
   })
+  const handleRefetch = useContext(DataContext)
 
   const fetchData = async () => {
     setIsLoading(true)
@@ -25,7 +27,7 @@ const VoteData = () => {
   }
   useEffect(() => {
     fetchData()
-  }, [paginationModel])
+  }, [paginationModel, handleRefetch])
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },

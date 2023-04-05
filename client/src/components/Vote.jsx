@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import {
   Alert,
   AlertTitle,
@@ -19,7 +19,7 @@ import * as yup from "yup"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import { postVotesData } from "../services/Services"
-
+import { DataContext } from "../App"
 const style = {
   position: "absolute",
   top: "50%",
@@ -44,6 +44,7 @@ const Vote = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [alertSeverity, setAlertSeverity] = useState("success")
   const [alertMessage, setAlertMessage] = useState("")
+  const handleRefetch = useContext(DataContext)
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -64,7 +65,9 @@ const Vote = () => {
         setAlertSeverity("success");
         setAlertMessage(response.data.message);
         formik.resetForm();
+        handleRefetch()
         setOpen(false)
+        // window.location.reload()
       } catch (err) {
         console.log(err)
         setAlertSeverity("error");

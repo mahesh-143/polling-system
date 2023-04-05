@@ -1,12 +1,14 @@
 import { Line } from "react-chartjs-2"
 import { Chart as ChartJS, scales } from "chart.js/auto"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getLineData } from "../services/Services"
+import { DataContext } from "../App"
 
 const LineChart = () => {
   const [chartData, setChartData] = useState([])
   const [trueVotes, setTrueVotes] = useState([])
   const [falseVotes, setFalseVotes] = useState([])
+  const handleRefetch = useContext(DataContext)
 
   useEffect(() => {
     const fetchTrueVotes = async () => {
@@ -28,7 +30,7 @@ const LineChart = () => {
 
     fetchTrueVotes()
     fetchFalseVotes()
-  }, [])
+  }, [handleRefetch])
 
   useEffect(() => {
     if (trueVotes.length > 0 && falseVotes.length > 0) {
