@@ -60,13 +60,13 @@ const LineChart = () => {
         datasets: [
           {
             label: "True Votes",
-            data: combinedDates.map(date => trueCounts[date]),
+            data: combinedDates.map((date) => trueCounts[date]),
             borderColor: "green",
             fill: false,
           },
           {
             label: "False Votes",
-            data: combinedDates.map(date => falseCounts[date]),
+            data: combinedDates.map((date) => falseCounts[date]),
             borderColor: "red",
             fill: false,
           },
@@ -81,9 +81,7 @@ const LineChart = () => {
   }
   return (
     <div style={{ height: "350px" }}>
-      <Line
-        data={chartData}
-      />
+      <Line data={chartData} />
     </div>
   )
 }

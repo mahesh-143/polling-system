@@ -62,16 +62,16 @@ const Vote = () => {
         setIsSubmitting(true)
         const response = await postVotesData(values)
         console.log(response.data)
-        setAlertSeverity("success");
-        setAlertMessage(response.data.message);
-        formik.resetForm();
+        setAlertSeverity("success")
+        setAlertMessage(response.data.message)
+        formik.resetForm()
         handleRefetch()
         setOpen(false)
         // window.location.reload()
       } catch (err) {
         console.log(err)
-        setAlertSeverity("error");
-        setAlertMessage("Failed to submit vote." + err);
+        setAlertSeverity("error")
+        setAlertMessage("Failed to submit vote." + err)
       } finally {
         setIsSubmitting(false)
       }
@@ -80,7 +80,9 @@ const Vote = () => {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" color="success">Cast Vote</Button>
+      <Button onClick={handleOpen} variant="contained" color="success">
+        Cast Vote
+      </Button>
       <Modal
         keepMounted
         open={open}
@@ -145,7 +147,9 @@ const Vote = () => {
       </Modal>
       {alertMessage && (
         <Alert severity={alertSeverity} onClose={() => setAlertMessage("")}>
-          <AlertTitle>{alertSeverity === "success" ? "Success" : "Error"}</AlertTitle>
+          <AlertTitle>
+            {alertSeverity === "success" ? "Success" : "Error"}
+          </AlertTitle>
           {alertMessage}
         </Alert>
       )}

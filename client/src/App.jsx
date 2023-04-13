@@ -3,20 +3,19 @@ import Navbar from "./components/Navbar"
 import VoteData from "./components/VoteData"
 import { Grid } from "@mui/material"
 import LineChart from "./components/LineChart"
-import { createContext,  useState } from "react"
+import { createContext, useState } from "react"
 
 export const DataContext = createContext(null)
 const App = () => {
-
-  const[refetch, setRefetch ] = useState(false)
+  const [refetch, setRefetch] = useState(false)
 
   const handleRefetch = () => {
-    setRefetch(prevRefetch => !prevRefetch) // toggle the value of refetch
+    setRefetch((prevRefetch) => !prevRefetch) // toggle the value of refetch
   }
 
   return (
     <>
-    <DataContext.Provider value={handleRefetch}>
+      <DataContext.Provider value={handleRefetch}>
         <Navbar />
         <Grid
           container
@@ -32,7 +31,7 @@ const App = () => {
           </Grid>
           <VoteData />
         </Grid>
-        </DataContext.Provider>
+      </DataContext.Provider>
     </>
   )
 }

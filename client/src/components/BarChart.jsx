@@ -30,15 +30,12 @@ const BarChart = () => {
     fetchData()
   }, [handleRefetch])
   if (!chartData || !chartData.datasets || chartData.datasets.length === 0) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
-    <div style={{height : "350px"}}>
-    <Bar
-      data={chartData}
-      options={{}}
-    />
+    <div style={{ height: "350px" }}>
+      <Bar data={chartData} options={{}} />
     </div>
   )
 }
